@@ -7,6 +7,8 @@ class ExchangeRateProvider
     private $httpClient;
     private string $apiKey;
 
+    private $cache = [];
+
     public function __construct($apiKey, callable $httpClient = null)
     {
         $this->apiKey = $apiKey;
@@ -18,13 +20,15 @@ class ExchangeRateProvider
 
     public function getRate($currency)
     {
-        $url = 'https://api.exchangeratesapi.io/latest?access_key=' . $this->apiKey;
-        $response = call_user_func($this->httpClient, $url);
-        if (!$response) {
-            throw new \Exception("Error fetching exchange rates.");
+        if (!$this->cache) {
+            $url = 'https://api.exchangeratesapi.io/latest?access_key=' . $this->apiKey;
+            $response = call_user_func($this->httpClient, $url);
+            if (!$response) {
+                throw new \Exception("Error fetching exchange rates.");
+            }
+            $this->cache = json_decode($response, true);
         }
-        $data = json_decode($response, true);
-        return $data['rates'][$currency] ?? 0;
+
+        return $this->cache['rates'][$currency] ?? 0;
     }
 }
-
