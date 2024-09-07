@@ -58,7 +58,7 @@ class RateCalculatorTest extends TestCase
         file_put_contents($inputFile, $inputData);
 
         // Test the generator
-        $generator = $rateCalculator->getRatesFromFileIterator($inputFile);
+        $generator = $rateCalculator->getRatesFromFileGenerator($inputFile);
         $commission = $generator->current();  // Get the first yielded commission
 
         // Clean up the temporary file

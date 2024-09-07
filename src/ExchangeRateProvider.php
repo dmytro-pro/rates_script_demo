@@ -2,7 +2,7 @@
 
 namespace DmytroPro\RatesScriptDemo;
 
-class ExchangeRateProvider
+class ExchangeRateProvider implements ExchangeRateProviderInterface
 {
     private $httpClient;
     private string $apiKey;

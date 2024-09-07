@@ -22,7 +22,7 @@ if (!isset($inputFile)) {
     throw new Exception('No input file provided. Usage: php rates.php <file>');
 }
 
-$iterator = $rateCalculator->getRatesFromFileIterator($inputFile);
+$iterator = $rateCalculator->getRatesFromFileGenerator($inputFile);
 foreach ($iterator as $commission) {
     echo $renderer->render($commission) . "\n";
 }

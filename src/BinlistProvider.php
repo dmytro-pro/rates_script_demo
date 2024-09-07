@@ -16,7 +16,7 @@ class BinlistProvider
         };
     }
 
-    public function getBinData($binId)
+    public function getBinData($binId): \stdClass
     {
         if (isset($this->cache[$binId])) {
             return $this->cache[$binId];

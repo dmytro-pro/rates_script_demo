@@ -2,7 +2,7 @@
 
 namespace DmytroPro\RatesScriptDemo;
 
-class RateCalculator
+class RateCalculator implements RateCalculatorInterface, RateCalculatorGeneratorInterface
 {
     private $binProvider;
     private $exchangeRateProvider;
@@ -19,7 +19,7 @@ class RateCalculator
     }
 
     // Generator to read and process input file row by row
-    public function getRatesFromFileIterator(string $filePath): \Generator
+    public function getRatesFromFileGenerator(string $filePath): \Generator
     {
         $file = fopen($filePath, 'r');
         while (($row = fgets($file)) !== false) {
