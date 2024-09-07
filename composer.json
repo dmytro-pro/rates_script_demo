@@ -1,0 +1,20 @@
+{
+    "name": "dmytro-pro/rates_script_demo",
+    "description": "Refactoring the rates script (demo task)",
+    "type": "project",
+    "require": {
+        "phpunit/phpunit": "^11.3"
+    },
+    "license": "BSD",
+    "autoload": {
+        "psr-4": {
+            "DmytroPro\\RatesScriptDemo\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Dmytro Pro",
+            "email": "dmytro.am@gmail.com"
+        }
+    ]
+}
