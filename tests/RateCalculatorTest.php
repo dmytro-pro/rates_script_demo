@@ -38,10 +38,10 @@ class RateCalculatorTest extends TestCase
         // Convert the output to a float for comparison
         $output = floatval(trim($output));
 
-        // Expected result
-        $expected = 100 / 1.109324 * 0.01;
+        // Expected result after ceiling to nearest cent
+        $expected = ceil((100 / 1.109324 * 0.01) * 100) / 100;
 
-        // Assert the result with a precision of 8 decimal places
-        $this->assertEqualsWithDelta($expected, $output, 0.00000001);
+        // Assert the result
+        $this->assertEquals($expected, $output);
     }
 }

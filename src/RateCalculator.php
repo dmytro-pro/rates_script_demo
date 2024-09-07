@@ -4,10 +4,14 @@ namespace DmytroPro\RatesScriptDemo;
 
 class RateCalculator
 {
-    // todo: CURRENCY_EUR, and others.
+    private const CURRENCY_EUR = 'EUR';
 
     private $binProvider;
     private $exchangeRateProvider;
+    private $euCountries = [
+        'AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR',
+        'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PO', 'PT', 'RO', 'SE', 'SI', 'SK'
+    ];
 
     public function __construct(BinlistProvider $binProvider, ExchangeRateProvider $exchangeRateProvider)
     {
@@ -15,6 +19,11 @@ class RateCalculator
         $this->exchangeRateProvider = $exchangeRateProvider;
     }
 
+    /**
+     * @param string $filePath
+     * @return void
+     * @throws \Exception
+     */
     public function calculateRatesFromFile(string $filePath)
     {
         $rows = explode("\n", file_get_contents($filePath));
@@ -31,17 +40,21 @@ class RateCalculator
             $binData = $this->binProvider->getBinData($bin);
             $isEu = $this->isEu($binData->country->alpha2);
 
-            $rate = $currency === 'EUR' ? 1 : $this->exchangeRateProvider->getRate($currency);
-            $amntFixed = ($currency === 'EUR' || $rate == 0) ? $amount : $amount / $rate;
+            // Use a constant for EUR comparison
+            $rate = $currency === self::CURRENCY_EUR ? 1 : $this->exchangeRateProvider->getRate($currency);
+            $amountFixed = ($currency === self::CURRENCY_EUR || $rate == 0) ? $amount : $amount / $rate;
 
-            echo $amntFixed * ($isEu == 'yes' ? 0.01 : 0.02);
+            // Apply commission rate and ceiling the result to the nearest cent
+            $commission = $amountFixed * ($isEu ? 0.01 : 0.02);
+            $commission = ceil($commission * 100) / 100; // Ceiling to the nearest cent
+
+            echo $commission;
             echo "\n";
         }
     }
 
-    private function isEu(string $countryCode): string
+    private function isEu(string $countryCode): bool
     {
-        $euCountries = ['AT', 'BE', 'BG', 'CY', 'CZ', 'DE', 'DK', 'EE', 'ES', 'FI', 'FR', 'GR', 'HR', 'HU', 'IE', 'IT', 'LT', 'LU', 'LV', 'MT', 'NL', 'PO', 'PT', 'RO', 'SE', 'SI', 'SK'];
-        return in_array($countryCode, $euCountries) ? 'yes' : 'no';
+        return in_array($countryCode, $this->euCountries);
     }
 }
