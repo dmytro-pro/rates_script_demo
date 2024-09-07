@@ -22,7 +22,7 @@ php rates.php input.txt
 ```
 php rates-legacy.php input.txt
 ```
-Note that it will likely produce an error due to API constraints (API key for rates & rate limit for binlist)
+Note that it will likely produce an error due to API constraints (API key for rates if not loaded from env & rate limit for binlist)
 
 ### License
 
