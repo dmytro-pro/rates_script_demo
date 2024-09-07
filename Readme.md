@@ -7,11 +7,12 @@ composer install
 
 ### Usage:
 ```
+export $(grep -v '^#' .env | xargs)
 php rates.php input.txt
 ```
 ### Tests:
 ```
-./vendor/bin/phpunit
+./vendor/bin/phpunit tests/
 ```
 
 ### How to launch legacy script to compare outputs:
