@@ -27,4 +27,5 @@ Note that it will likely produce an error due to API constraints (API key for ra
 ### License
 
 See [LICENSE](LICENSE).   
-Made for fun ) try to solve it with own style if You dare 🍀
+Made for fun ) try to solve it with own style if You dare 🍀  
+4.5 hours spent.
