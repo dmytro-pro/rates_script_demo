@@ -3,7 +3,10 @@
 ### Installing:
 ```
 composer install
+cp .env.example .env
 ```
+
+And add [your API KEY](https://exchangeratesapi.io/) to .env file before you start
 
 ### Usage:
 ```
